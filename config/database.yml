@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: wdi_4_rails_hw_tdd_hacker_news_production
-  username: wdi_4_rails_hw_tdd_hacker_news
-  password: <%= ENV['WDI_4_RAILS_HW_TDD_HACKER_NEWS_DATABASE_PASSWORD'] %>
+#   username: wdi_4_rails_hw_tdd_hacker_news
+#  password: <%= ENV['WDI_4_RAILS_HW_TDD_HACKER_NEWS_DATABASE_PASSWORD'] %>
