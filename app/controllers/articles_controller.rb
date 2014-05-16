@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
+
   before_action :set_article, only: [:show, :edit]
 
   # GET /articles
@@ -17,9 +19,9 @@ class ArticlesController < ApplicationController
 
   # POST /articles
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.create(article_params)
     
-    if @article.save
+    if @article.valid?
       redirect_to @article, notice: 'Article was successfully created.' 
     else
       render :new

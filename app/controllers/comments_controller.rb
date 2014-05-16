@@ -1,13 +1,15 @@
 class CommentsController < ApplicationController
-  before_action :set_article, only: [:new,:create]
+  before_action :authenticate_user!
   
+  before_action :set_article, only: [:new,:create]
+
   def new
     @comment = Comment.new
   end
 
   def create
     @comment = @article.comments.create(comment_params)
-    
+
     if @comment.save
       redirect_to article_path(@article.id), notice: 'Comment was created'
     else
@@ -19,11 +21,12 @@ class CommentsController < ApplicationController
   private
 
   def set_article
-    @article = Article.find(params[:article_id])
+    @article = current_user.articles.find(params[:article_id])
   end
   
   def comment_params
-    params.require(:comment).permit(:content)
+    params[:comment][:user_id] = current_user.id
+    params.require(:comment).permit(:content, :user_id, :article_id)
   end
 
 end

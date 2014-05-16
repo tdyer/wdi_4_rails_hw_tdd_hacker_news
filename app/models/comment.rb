@@ -1,8 +1,10 @@
 class Comment < ActiveRecord::Base
   after_initialize :defaults
+  
   belongs_to :article
-
-  validates :content, presence: true
+  belongs_to :user
+  
+#  validates :content, presence: true
 
   def defaults
     self.submitted_at = DateTime.now

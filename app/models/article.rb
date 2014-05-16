@@ -6,7 +6,8 @@ class Article < ActiveRecord::Base
   validates :url, format: { with: /\Ahttp\:\/\/.*\z/ }
 
   has_many :comments
-
+  belongs_to :user
+  
   def defaults
     self.submitted_at = DateTime.now
   end

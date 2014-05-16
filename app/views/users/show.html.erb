@@ -5,4 +5,29 @@
   <%= @user.email %>
 </p>
 <br>
+<ul> My Articles
+  <% @user.articles.each do |article| %>
+    <li> <%= link_to article.title, article_path(article) %> </li>
+    <ul>
+    <% article.comments.each do |comment| %>
+      
+      <li><%= link_to comment.content%> by <%= comment.user ?
+    link_to(comment.user.email, user_path(comment.user)) : "anonymous" %></li>
+    <% end %>
+    </ul>
+  <% end %>
+</ul>
+
+<ul> Commented Articles 
+  <% @user.commented_articles.uniq.each do |article| %> 
+    <li> <%= link_to article.title, article_path(article) %> </li> 
+    <ul> Comments
+    <% article.comments.where(user: current_user).each do |comment| %>
+       <li><%= link_to comment.content%> by <%= comment.user ?
+                                                link_to(comment.user.email, user_path(comment.user)) : "anonymous" %></li>
+    <% end %>
+    </ul>
+  <% end %>
+</ul> 
+
 <%= link_to 'Back', users_path %>
