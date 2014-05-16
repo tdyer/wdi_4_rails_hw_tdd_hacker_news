@@ -10,8 +10,8 @@
   <%= link_to @article.title, @article.url, target: '_blank' %>
 </p>
 <ul> Comments
-  <% @article.comments.each do |comment| %>
-  <li> <%= comment.content %></li>
+  <% @article.comments.order(submitted_at: :desc).each do |comment| %>
+  <li><%= comment.content %></li>
   <% end %>
 </ul>
 <%= link_to "New Comment", new_article_comment_path(@article) %>

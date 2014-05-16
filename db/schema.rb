@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(version: 20140515215620) do
   end
 
   create_table "comments", force: true do |t|
-    t.text     "content"
+    t.text     "content",                                      null: false
+    t.datetime "submitted_at", default: '2014-05-16 07:11:14', null: false
     t.integer  "article_id"
-    t.datetime "submitted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
