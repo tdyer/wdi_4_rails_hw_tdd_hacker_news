@@ -14,5 +14,6 @@
   <li> <%= comment.content %></li>
   <% end %>
 </ul>
-
+<%= link_to "New Comment", new_article_comment_path(@article) %>
+<br>
 <%= link_to 'Back', articles_path %>

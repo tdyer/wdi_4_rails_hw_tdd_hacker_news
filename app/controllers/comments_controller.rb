@@ -1,23 +1,29 @@
 class CommentsController < ApplicationController
-
-  before_action :get_article, [:new,:create]
+  before_action :set_article, only: [:new,:create]
   
   def new
     @comment = Comment.new
   end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @article.comments.create(comment_params)
+    
+    if @comment.save
+      redirect_to article_path(@article.id), notice: 'Comment was created'
+    else
+      flash.now[:error] = 'Failed to create comment'
+      render :new
+    end
   end
   
   private
 
-  def get_article
-    @article = Article.find(params[:article])
+  def set_article
+    @article = Article.find(params[:article_id])
   end
   
   def comment_params
-    params.require(:article).permit(:article)
+    params.require(:comment).permit(:content)
   end
 
 end
