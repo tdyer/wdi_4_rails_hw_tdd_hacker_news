@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
 
-  before_action :set_article, only: [:show, :edit]
+  before_action :set_article, only: [:show,:edit,:update,:destroy]
 
   # GET /articles
   def index
@@ -24,8 +24,26 @@ class ArticlesController < ApplicationController
     if @article.valid?
       redirect_to @article, notice: 'Article was successfully created.' 
     else
+      flash.now[:error] = 'Could not create article'
       render :new
     end
+  end
+
+  def edit
+  end
+
+  def update
+    if @article.update(article_params)
+      redirect_to @article, notice: 'Updated Article'
+    else
+      flash.now[:error] = 'Could not update article'
+      render :edit
+    end
+  end
+
+  def destroy
+    @article.destroy
+    redirect_to articles_path, notice: "Removed Article \"#{@article.title}\""
   end
 
   private

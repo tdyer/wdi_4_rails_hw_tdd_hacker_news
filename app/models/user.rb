@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :commented_articles, through: :comments, source: :article 
-  has_many :articles
+  has_many :articles, dependent: :destroy
   
 end

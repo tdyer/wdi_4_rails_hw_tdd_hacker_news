@@ -5,7 +5,7 @@ class Article < ActiveRecord::Base
   # validates :url, format: { with: /URI.regexp/ }
   validates :url, format: { with: /\Ahttp\:\/\/.*\z/ }
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
   belongs_to :user
   
   def defaults
