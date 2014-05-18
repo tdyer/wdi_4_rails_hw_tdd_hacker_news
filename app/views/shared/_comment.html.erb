@@ -1,5 +1,3 @@
-  <li>
-    <%= comment.content %> |
-    <%= comment.user ?
-        link_to(comment.user.email,user_path(comment.user)) : "anonymous" %> 
-  </li>
+<p><%= link_to comment.content, [comment.article, comment] %> by
+   <%= comment.user ? link_to(comment.user.email,user_path(comment.user)) : "anonymous" %> 
+</p>

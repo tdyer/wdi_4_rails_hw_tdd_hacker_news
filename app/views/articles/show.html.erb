@@ -1,19 +1,31 @@
-<p id="notice"><%= notice %></p>
-
+<h3>Article</h3>
 <p>
   <strong>Title:</strong>
   <%= @article.title %>
+  <h4>by <%= @article.user.email %></h4>
 </p>
 
 <p>
   <strong>Url:</strong>
   <%= link_to @article.title, @article.url, target: '_blank' %>
 </p>
-<ul> Comments
+<% if current_user == @article.user %>
+  <p>
+    <%= link_to 'Edit', edit_article_path(@article) %>
+    <%= link_to 'Destroy', article_path(@article), :confirm => 'Are you
+  sure?', :method => :delete %>
+  </p>
+<% end %>
+
+<h3>Comments</h3>
+<ul>
   <%= render partial: 'shared/comment', collection: @article.comments %>
 </ul>
 
-<%= link_to "New Comment", new_article_comment_path(@article) if
-    user_signed_in? %>
-<br>
-<%= link_to 'Back', articles_path %>
+
+<!-- Only logged in users can comment --> 
+<% if user_signed_in? %>
+  <p>  
+    <%= link_to "New Comment", new_article_comment_path(@article)%>
+  </p>
+<% end %>
