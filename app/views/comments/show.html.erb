@@ -1,4 +1,5 @@
-<h3>Comment</h3>
+
+<h3>Comment for <%= link_to @comment.article.title, article_path(@comment.article) %></h3>
 <p>
   <%= @comment.content %>
 </p>
@@ -7,3 +8,4 @@
   Submitted At:
   <%= @comment.submitted_at.to_time.strftime('%B %e at %l:%M %p') %> by <%= @comment.user.email %>
 </p>
+

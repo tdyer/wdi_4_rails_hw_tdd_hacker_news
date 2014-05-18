@@ -29,3 +29,11 @@
     <%= link_to "New Comment", new_article_comment_path(@article)%>
   </p>
 <% end %>
+
+<% if user_signed_in? %>
+<p>
+  <%= link_to "User #{current_user.email} Articles", user_path(current_user) %>
+</p>
+<% end %>
+
+
